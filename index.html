@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Rotation Prediction</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f7f6;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        input[type="number"], button {
+            padding: 0.8em;
+            font-size: 1em;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Rotation Accuracy</h1>
+        <form action="/predict" method="POST">
+            <label>EEG Alpha Wave: <input type="number" name="f1" step="0.01" value="0.5" required></label>
+            <label>EEG Beta Wave: <input type="number" name="f2" step="0.01" value="0.5" required></label>
+            <label>GSR Mean: <input type="number" name="f3" step="0.01" value="0.5" required></label>
+            <label>Eye Gaze X: <input type="number" name="f4" step="0.01" value="0.5" required></label>
+            <label>Eye Gaze Y: <input type="number" name="f5" step="0.01" value="0.5" required></label>
+            <button type="submit">Predict</button>
+        </form>
+        <div class="result">
+            {% if prediction_text %}
+                <h2>{{ prediction_text }}</h2>
+                <p>{{ confidence_text }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
